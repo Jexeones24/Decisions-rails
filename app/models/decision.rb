@@ -13,8 +13,8 @@ class Decision < ApplicationRecord
 
   def outcome_opinions(outcomes)
     opinions = []
-    outcomes.each do |o|
-      opinions.push(o)
+    outcomes.map do |o|
+      opinions.push(o.opinions)
     end
     opinions
   end

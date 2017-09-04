@@ -13,7 +13,9 @@ class Api::V1::DecisionsController < ApplicationController
   end
 
 
+  # opinions is actually same as outcomes
   def show
+    # byebug
     decision = Decision.find_by(id: params[:id])
     outcomes = decision.outcomes
     opinions = decision.outcome_opinions(outcomes)
