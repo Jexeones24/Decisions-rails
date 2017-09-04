@@ -7,13 +7,22 @@ class Api::V1::DecisionsController < ApplicationController
 
   def create
     decision = Decision.create(decision_params)
-    current_user.decisions << decision
+    user = User.find_by(id: params[:user_id])
+    user.decisions << decision
     render json: decision
   end
 
+
   def show
     decision = Decision.find_by(id: params[:id])
-    render json: decision
+    outcomes = decision.outcomes
+    opinions = decision.outcome_opinions(outcomes)
+    render json: {
+      decision: decision,
+      outcomes: outcomes,
+      opinions: opinions
+    }
+
   end
 
   def update

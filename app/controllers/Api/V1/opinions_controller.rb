@@ -7,7 +7,7 @@ class Api::V1::OpinionsController < ApplicationController
 
   def create
     opinion = Opinion.create(opinion_params)
-    outcome = Outcome.find_by(id: params[:id])
+    outcome = Outcome.find_by(id: params[:outcome_id])
     outcome.opinions << opinion
     render json: opinion
   end

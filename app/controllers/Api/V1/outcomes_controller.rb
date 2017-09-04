@@ -7,7 +7,7 @@ class Api::V1::OutcomesController < ApplicationController
 
   def create
     outcome = Outcome.create(outcome_params)
-    decision = Decision.find_by(id: params[:id])
+    decision = Decision.find_by(id: params[:decision_id])
     decision.outcomes << outcome
     render json: outcome
   end

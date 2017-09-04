@@ -6,11 +6,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
+    byebug
     user = User.create(user_params)
     render json: {
       id: user.id,
       username: user.username,
-      # jwt: JWT.encode({id: user.id}, "decisions", false)
+      jwt: JWT.encode({id: user.id}, "LIFEsTRIFE", false)
     }
   end
 
