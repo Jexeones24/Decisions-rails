@@ -13,7 +13,6 @@ class Api::V1::DecisionsController < ApplicationController
   end
 
 
-  # opinions is actually same as outcomes
   def show
     # byebug
     decision = Decision.find_by(id: params[:id])
@@ -28,8 +27,9 @@ class Api::V1::DecisionsController < ApplicationController
   end
 
   def update
+    # byebug
     decision = Decision.find_by(id: params[:id])
-    decision.update(decision_params)
+    decision.update(content: params[:content])
     render json: decision
   end
 

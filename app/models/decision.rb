@@ -8,7 +8,7 @@ class Decision < ApplicationRecord
     outcomes = all_outcomes.select do |o|
       o.decision_id == self.id
     end
-    outcomes
+    outcomes.flatten
   end
 
   def outcome_opinions(outcomes)
@@ -16,6 +16,6 @@ class Decision < ApplicationRecord
     outcomes.map do |o|
       opinions.push(o.opinions)
     end
-    opinions
+    opinions.flatten
   end
 end
