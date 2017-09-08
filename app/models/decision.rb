@@ -1,6 +1,6 @@
 class Decision < ApplicationRecord
   belongs_to :user
-  has_many :outcomes
+  has_many :outcomes :dependent => :destroy
 
   # decision id
   def outcomes

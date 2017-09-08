@@ -1,6 +1,6 @@
 class Outcome < ApplicationRecord
   belongs_to :decision
-  has_many :opinions
+  has_many :opinions :dependent => :destroy
 
   def opinions
     all_opinions = Opinion.all
