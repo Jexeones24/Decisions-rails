@@ -1,5 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
-  before_action :authorize_user!, only: [:show]
+  skip_before_action :authorized, only: [:create]
+
 
   def show
     render json: {
@@ -8,19 +9,16 @@ class Api::V1::SessionsController < ApplicationController
     }
   end
 
-  def create
-    # byebug
-    user = User.find_by(username: params[:username])
-    if user.present? && user.authenticate(params[:password])
-      render json: {
-        id: user.id,
-        username: user.username,
-        jwt: JWT.encode({id: user.id}, "LIFEsTRIFE")
-      }
-    else
-      render json: {
-        error: "You do not have the correct credentials."
-      }, status: 404
+    def create
+      user = User.find_by(email: params[:email])
+      if user && user.authenticate(params[:password])
+        payload = {user_id: user.id}
+        token = issue_token(payload)
+        render json: { jwt: token, user: { id: user.id, email: user.email } }
+      else
+        error = user.errors.any? ? user.errors.full_messages : "Login failed!"
+        render json: { error: error }, status: :unauthorized
+      end
     end
   end
 

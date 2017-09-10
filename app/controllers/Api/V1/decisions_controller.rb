@@ -1,4 +1,5 @@
 class Api::V1::DecisionsController < ApplicationController
+  before_action :authorized
 
   def index
     decisions = Decision.all
@@ -14,16 +15,8 @@ class Api::V1::DecisionsController < ApplicationController
 
 
   def show
-    # byebug
     decision = Decision.find_by(id: params[:id])
-    outcomes = decision.outcomes
-    opinions = decision.outcome_opinions(outcomes)
-    render json: {
-      decision: decision,
-      outcomes: outcomes,
-      opinions: opinions
-    }
-
+    render json: decision
   end
 
   def update

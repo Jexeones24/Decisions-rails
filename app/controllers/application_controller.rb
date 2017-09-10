@@ -1,33 +1,38 @@
 class ApplicationController < ActionController::API
-  private
 
-  def authorize_user!
-    if !current_user.present?
-      render json: { error: 'No user id present' }
-    end
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+  before_action :authorized
+
+  def issue_token(payload)
+   JWT.encode(payload, self.auth_secret, "LIFEsTRIFE")
   end
 
   def current_user
-    current_user ||= User.find_by(id: user_id)
-  end
-
-  def user_id
-    decoded_token.first['id']
-  end
-
-  def decoded_token
-    if token
+    authenticate_or_request_with_http_token do |jwt_token, options|
       begin
-        JWT.decode(token.split(" ")[1], "LIFEsTRIFE")
+        decoded_token = JWT.decode(jwt_token, self.auth_secret, "LIFEsTRIFE")
+
       rescue JWT::DecodeError
-        return [{}]
+        return nil
       end
-    else
-      [{}]
+
+      if decoded_token[0]["user_id"]
+        @current_user ||= User.find(decoded_token[0]["user_id"])
+      else
+      end
     end
   end
 
-  def token
-    request.headers['Authorization']
+  def logged_in?
+    !!current_user
   end
+
+  def auth_secret
+    ENV["AUTH_SECRET"]
+  end
+
+  def authorized
+    render json: {message: "Not welcome" }, status: 401 unless logged_in?
+  end
+   
 end

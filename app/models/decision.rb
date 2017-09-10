@@ -1,8 +1,7 @@
 class Decision < ApplicationRecord
   belongs_to :user
-  has_many :outcomes :dependent => :destroy
+  has_many :outcomes
 
-  # decision id
   def outcomes
     all_outcomes = Outcome.all
     outcomes = all_outcomes.select do |o|
