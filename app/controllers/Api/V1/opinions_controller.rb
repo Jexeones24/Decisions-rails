@@ -1,6 +1,6 @@
 class Api::V1::OpinionsController < ApplicationController
-  before_action :authorized
-  
+  # before_action :authorized
+
   def index
     opinions = Opinion.all
     render json: opinions

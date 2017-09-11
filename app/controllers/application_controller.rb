@@ -1,38 +1,39 @@
 class ApplicationController < ActionController::API
 
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_action :authorized
+  # before_action :authorized
 
-  def issue_token(payload)
-   JWT.encode(payload, self.auth_secret, "LIFEsTRIFE")
-  end
+  # def issue_token(payload)
+  #   # byebug
+  #  JWT.encode(payload, nil, 'none')
+  # end
+  #
+  # def current_user
+  #   authenticate_or_request_with_http_token do |jwt_token, options|
+  #     begin
+  #       decoded_token = JWT.decode(jwt_token, nil, 'none')
+  #
+  #     rescue JWT::DecodeError
+  #       return nil
+  #     end
+  #
+  #     if decoded_token[0]["user_id"]
+  #       @current_user ||= User.find(decoded_token[0]["user_id"])
+  #     else
+  #     end
+  #   end
+  # end
+  #
+  # def logged_in?
+  #   !!current_user
+  # end
+  #
+  # def auth_secret
+  #   ENV["AUTH_SECRET"]
+  # end
+  #
+  # def authorized
+  #   render json: {message: "Not welcome" }, status: 401 unless logged_in?
+  # end
 
-  def current_user
-    authenticate_or_request_with_http_token do |jwt_token, options|
-      begin
-        decoded_token = JWT.decode(jwt_token, self.auth_secret, "LIFEsTRIFE")
-
-      rescue JWT::DecodeError
-        return nil
-      end
-
-      if decoded_token[0]["user_id"]
-        @current_user ||= User.find(decoded_token[0]["user_id"])
-      else
-      end
-    end
-  end
-
-  def logged_in?
-    !!current_user
-  end
-
-  def auth_secret
-    ENV["AUTH_SECRET"]
-  end
-
-  def authorized
-    render json: {message: "Not welcome" }, status: 401 unless logged_in?
-  end
-   
 end

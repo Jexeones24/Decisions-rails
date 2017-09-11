@@ -1,5 +1,5 @@
 class Api::V1::DecisionsController < ApplicationController
-  before_action :authorized
+  # before_action :authorized
 
   def index
     decisions = Decision.all

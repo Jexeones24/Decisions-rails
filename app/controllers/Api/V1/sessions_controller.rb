@@ -1,5 +1,5 @@
 class Api::V1::SessionsController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  # skip_before_action :authorized, only: [:create]
 
 
   def show
@@ -20,6 +20,6 @@ class Api::V1::SessionsController < ApplicationController
         render json: { error: error }, status: :unauthorized
       end
     end
-  end
+
 
 end

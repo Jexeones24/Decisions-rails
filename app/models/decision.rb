@@ -2,7 +2,7 @@ class Decision < ApplicationRecord
   belongs_to :user
   has_many :outcomes
 
-  def outcomes
+  def all_outcomes
     all_outcomes = Outcome.all
     outcomes = all_outcomes.select do |o|
       o.decision_id == self.id

@@ -1,6 +1,6 @@
 class Api::V1::OutcomesController < ApplicationController
- before_action :authorized
- 
+ # before_action :authorized
+
   def index
     outcomes = Outcome.all
     render json: outcomes
