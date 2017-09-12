@@ -1,8 +1,5 @@
 class OutcomeSerializer < ActiveModel::Serializer
-  attributes :id, :content, :decision_id, :opinions
+  attributes :id, :content, :decision_id, :opinions, :values
+  has_many :opinions
 
-
-  def opinions
-    object.opinions
-  end
 end

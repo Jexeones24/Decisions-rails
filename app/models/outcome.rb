@@ -1,6 +1,6 @@
 class Outcome < ApplicationRecord
   belongs_to :decision
-  has_many :opinions
+  has_many :opinions, dependent: :destroy
 
   def opinions
     all_opinions = Opinion.all
@@ -9,5 +9,15 @@ class Outcome < ApplicationRecord
     end
     opinions
   end
+
+  def values
+    values = []
+    opinions = self.opinions
+    opinions.map do |o|
+      values << o.value
+    end
+    values
+  end
+
 
 end

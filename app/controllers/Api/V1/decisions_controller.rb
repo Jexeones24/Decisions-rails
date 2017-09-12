@@ -19,6 +19,11 @@ class Api::V1::DecisionsController < ApplicationController
     render json: decision
   end
 
+
+  def everything
+    decisions = Decision.all
+  end
+
   def update
     # byebug
     decision = Decision.find_by(id: params[:id])
