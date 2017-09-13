@@ -7,6 +7,7 @@ class Api::V1::OpinionsController < ApplicationController
   end
 
   def create
+    # byebug
     opinion = Opinion.create(opinion_params)
     outcome = Outcome.find_by(id: params[:outcome_id])
     outcome.opinions << opinion

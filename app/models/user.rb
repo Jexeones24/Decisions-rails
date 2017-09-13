@@ -2,5 +2,5 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, uniqueness: true
 
-  has_many :decisions
+  has_many :decisions, dependent: :destroy
 end

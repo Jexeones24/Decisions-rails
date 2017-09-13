@@ -2,27 +2,20 @@ class Decision < ApplicationRecord
   belongs_to :user
   has_many :outcomes, dependent: :destroy
 
-  def all_outcomes
-
-    all_outcomes = Outcome.all
-    outcomes = all_outcomes.select do |o|
-      o.decision_id == self.id
+  def pros
+    outcomes = self.outcomes
+    all_pros = outcomes.map do |o|
+      o.pros
     end
-    outcomes.flatten
+    all_pros.reduce(:+)
   end
 
-
-
-  def all_outcomes_and_opinions
-
-  end
-
-  def outcome_opinions(outcomes)
-    opinions = []
-    outcomes.map do |o|
-      opinions.push(o.opinions)
+  def cons
+    outcomes = self.outcomes
+    all_cons = outcomes.map do |o|
+      o.cons
     end
-    opinions.flatten
+    all_cons.reduce(:+)
   end
 
 end

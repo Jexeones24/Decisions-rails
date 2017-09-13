@@ -10,13 +10,21 @@ class Outcome < ApplicationRecord
     opinions
   end
 
-  def values
-    values = []
+
+  def pros
     opinions = self.opinions
-    opinions.map do |o|
-      values << o.value
+    pros = opinions.select do |o|
+      o.value === true
     end
-    values
+    pros.count
+  end
+
+  def cons
+    opinions = self.opinions
+    cons = opinions.select do |o|
+      o.value === false
+    end
+    cons.count
   end
 
 
