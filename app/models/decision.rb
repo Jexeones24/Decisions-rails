@@ -18,4 +18,8 @@ class Decision < ApplicationRecord
     all_cons.reduce(:+)
   end
 
+  def date_time
+    self.created_at.strftime("%B %e, %Y at %I:%M %p")
+  end
+
 end
